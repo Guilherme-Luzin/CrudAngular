@@ -1,0 +1,26 @@
+<div *ngIf="cliente">
+    <h3>Deletar Cliente</h3>
+    <hr>
+    <table>
+        <tr>
+            <th>Id: {{cliente.id}}</th>         
+        </tr>
+        <tr>
+            <td>nome: {{cliente.nome}}</td>
+        </tr>
+        <tr>
+            <td>idade: {{cliente.idade}}</td>
+        </tr>
+        <tr>
+            <td>email: {{cliente.email}}</td>
+        </tr>
+        <tr>
+            <td>sexo: {{cliente.sexo}}</td>
+        </tr>
+    </table>
+    <hr>
+    <div class="form-group">
+        <button type="submit" class="btn btn-danger">Deletar</button> |
+        <input type="button" (click)="goBack()" class="btn btn-primary" value="Cancelar">
+    </div>
+</div>

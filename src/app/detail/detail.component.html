@@ -1,0 +1,26 @@
+<div *ngIf="cliente">
+    <h3>Detalhes do Cliente</h3>
+    <hr>
+    <table>
+        <tr>
+            <th>Id: {{cliente.id}}</th>         
+        </tr>
+        <tr>
+            <td>nome: {{cliente.nome}}</td>
+        </tr>
+        <tr>
+            <td>idade: {{cliente.idade}}</td>
+        </tr>
+        <tr>
+            <td>email: {{cliente.email}}</td>
+        </tr>
+        <tr>
+            <td>sexo: {{cliente.sexo}}</td>
+        </tr>
+    </table>
+    <hr>
+    <div class="form-group">
+        <input type="submit" routerLink="/edit/{{cliente.id}}" class="btn btn-primary" value="Editar"> |
+        <input type="button" class="btn btn-primary" value="Voltar" (click)="goBack()">
+    </div>
+</div>

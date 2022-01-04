@@ -1,0 +1,27 @@
+<h3>Lista de Clientes</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Email</th>
+            <th>Sexo</th>
+            <th><button routerLink="/create" class="btn btn-light">+</button></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cliente of dataSource">
+            <th>{{cliente.id}}</th>
+            <td>{{cliente.nome}}</td>
+            <td>{{cliente.idade}}</td>
+            <td>{{cliente.email}}</td>
+            <td>{{cliente.sexo}}</td>
+            <td><a routerLink="/edit/{{cliente.id}}">Editar</a></td>
+            <td><a routerLink="/detail/{{cliente.id}}">Detalhes</a></td>
+            <td><a routerLink="/delete/{{cliente.id}}">Deletar</a></td>
+        </tr>
+    </tbody>
+</table>
