@@ -1,0 +1,31 @@
+<h3>Cadastro de Cliente</h3>
+<hr>
+<div class="col-md-5">
+    <form [formGroup]="this._clienteService.formCliente" (ngSubmit)="onSubmit()">
+        <input type="hidden" formControlName="$id">
+        <div class="form-group">
+            <label>Nome:</label>
+            <input formControlName="nome" class="form-control" placeholder="Nome">
+        </div>
+        <div class="form-group">
+            <label>Idade:</label>
+            <input formControlName="idade" class="form-control" placeholder="0">
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input formControlName="email" class="form-control" placeholder="exemplo@exemplo.exemplo">
+        </div>
+        <div class="form-group">
+            <label>Sexo:</label>
+            <select formControlName="sexo" id="inSexo" class="form-control">
+                <option selected value="outros">Outros</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Salvar"> |
+            <input type="button" class="btn btn-primary" value="Cancelar" (click)="goBack()">
+        </div>
+    </form>
+</div>
