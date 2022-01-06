@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { ClientesService } from '../clientes.service';
 
-import { Clientes } from '../clientes/clientes.component'
+import { ICliente } from '../cliente.model'
 
 @Component({
   selector: 'app-detail',
@@ -13,19 +13,20 @@ import { Clientes } from '../clientes/clientes.component'
 })
 export class DetailComponent implements OnInit {
 
-  @Input() cliente?: Clientes;
+  cliente: ICliente = {slug: '', nomeCompleto: '', idade: 0, email: '', sexo: ''}
 
-  constructor(private _route: ActivatedRoute,
+
+  constructor(private _route: ActivatedRoute, 
     public _clienteService: ClientesService,
     private _location: Location) { }
 
   ngOnInit(): void {
-    this.getCliente();
-  }
-
-  getCliente(): void{
-    const id = Number(this._route.snapshot.paramMap.get('id'));
-    this._clienteService.getCliente(id).subscribe(cliente => this.cliente = cliente);
+    const slug = String(this._route.snapshot.paramMap.get('slug'));
+    console.log("Esse é o slug -> " + slug)
+    this._clienteService.getClienteByID(slug).subscribe((res: ICliente) => {
+      this.cliente = res;
+      console.log(this.cliente)
+    })
   }
 
   goBack(): void {

@@ -2,30 +2,58 @@ import { Injectable } from '@angular/core';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { FirebaseApp } from 'firebase/app';
+import {
+  Firestore, addDoc, collection, collectionData,
+  doc, docData, deleteDoc, updateDoc, DocumentReference, setDoc, enableIndexedDbPersistence
+} from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
 
-import { Clientes } from './clientes/clientes.component'
-import { CLIENTE } from './clientes/clientes.component'
+import { ICliente } from './cliente.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientesService {
 
-  constructor() {}
+  constructor(private firestore: Firestore) {
+  }
+
   formCliente = new FormGroup({
-    $id: new FormControl(0),
-    nome: new FormControl('', Validators.required),
+    slug: new FormControl(''),
+    nomeCompleto: new FormControl('', Validators.required),
     idade: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     sexo: new FormControl('', Validators.required)
   })
 
-  getCliente(id: number): Observable<Clientes> {
-    const cliente = CLIENTE.find(h => h.id === id)!;
-    return of(cliente);
+  getClientes(): Observable<ICliente[]>{
+    const clienteRef = collection(this.firestore, 'clientes')
+    return collectionData(clienteRef, { idField: 'slug' }) as Observable<ICliente[]>;
+  }
+
+  addCliente(cliente: ICliente){
+    const clienteRef = collection(this.firestore, 'clientes');
+    return addDoc(clienteRef, cliente);
+  }
+  
+  populateForm(cliente: ICliente){
+    this.formCliente.setValue(cliente);
+  }
+
+  updateCliente(cliente: ICliente){
+    const clienteDocRef = doc(this.firestore, `clientes/${cliente.slug}`);
+    return setDoc(clienteDocRef, cliente);
+  }
+
+  deleteCliente(cliente: ICliente){
+    const clienteDocRef = doc(this.firestore, `clientes/${cliente.slug}`);
+    return deleteDoc(clienteDocRef);
+  }
+
+  getClienteByID(slug: string){
+    const clienteRef = doc(this.firestore, `cliente/${slug}`);
+    return docData(clienteRef, { idField: 'slug' }) as Observable<ICliente>;
   }
 
 }

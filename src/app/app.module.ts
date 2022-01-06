@@ -2,18 +2,24 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { ClientesComponent } from './clientes/clientes.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateComponent } from './create/create.component';
-
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { HomeComponent } from './home/home.component';
 import { DetailComponent } from './detail/detail.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeleteComponent } from './delete/delete.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
+import { firebaseConfig } from 'src/environments/firebase.config';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 
@@ -27,7 +33,7 @@ import { DeleteComponent } from './delete/delete.component';
     DeleteComponent,
   ],
   imports: [
-    provideFirebaseApp(() => initializeApp({  })),
+    provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
     BrowserModule,
     FormsModule,

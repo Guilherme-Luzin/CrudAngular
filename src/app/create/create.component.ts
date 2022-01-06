@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ClientesService } from '../clientes.service';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { Clientes } from '../clientes/clientes.component'
-import { ActivatedRoute } from '@angular/router';
+import { ICliente } from '../cliente.model'
+import { ClientesService } from '../clientes.service';
 
 @Component({
   selector: 'app-create',
@@ -12,30 +11,36 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CreateComponent implements OnInit {
 
-  @Input() cliente?: Clientes;
+  durationInSeconds = 1;
 
+  cliente: ICliente = {slug: '', nomeCompleto: '', idade: 0, email: '', sexo: ''}
   formCliente = this._clienteService.formCliente.controls;
   
-  constructor(private _route: ActivatedRoute,
-    public _clienteService: ClientesService,
-    private _location: Location) { 
+  constructor(public _clienteService: ClientesService, private _location: Location) { 
     }
     
   ngOnInit(): void {
-    this.getCliente();
   }
 
-  getCliente(): void{
-    const id = Number(this._route.snapshot.paramMap.get('id'));
-    this._clienteService.getCliente(id).subscribe(cliente => this.cliente = cliente);
-  }
+  onSubmit(): void{
+    // if(this._clienteService.formCliente.get('slug') == null){
+    //   this._clienteService.addCliente(this._clienteService.formCliente.value)
+    //   .then(() => this._clienteService.formCliente.reset())
+    // }
+    // else{
+    //   this._clienteService.updateCliente(this._clienteService.formCliente.value)
+    //     .then(() => this._clienteService.formCliente.reset())
+    // }
 
-  onSubmit(): void{    
-       this.goBack();
+    this._clienteService.addCliente(this._clienteService.formCliente.value)
+      .then(() => this._clienteService.formCliente.reset())
+      alert("Dados salvos com sucesso")
+      this.goBack();
   }
 
   goBack(): void{
-    this._location.back();
+    this._location.back() 
+    this._clienteService.formCliente.reset();
   }
 
 }
