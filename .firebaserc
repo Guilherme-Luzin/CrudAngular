@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "crudclienteangular": {
+      "hosting": {
+        "CrudAngular": [
+          "crudclienteangular"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "crudclienteangular"
+  }
+}

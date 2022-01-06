@@ -53,3 +53,7 @@ e2e/*.map
 !.vscode/*.code-snippets
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,angular
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

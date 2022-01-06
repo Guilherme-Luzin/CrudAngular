@@ -1,26 +1,30 @@
-<div *ngIf="cliente">
+<div *ngIf="clientes">
     <h3>Deletar Cliente</h3>
     <hr>
     <table>
         <tr>
-            <th>Id: {{cliente.id}}</th>         
+            <th>Id: {{clientes.slug}}</th>         
         </tr>
         <tr>
-            <td>nome: {{cliente.nome}}</td>
+            <td>nome: {{clientes.nomeCompleto}}</td>
         </tr>
         <tr>
-            <td>idade: {{cliente.idade}}</td>
+            <td>idade: {{clientes.idade}}</td>
         </tr>
         <tr>
-            <td>email: {{cliente.email}}</td>
+            <td>email: {{clientes.email}}</td>
         </tr>
         <tr>
-            <td>sexo: {{cliente.sexo}}</td>
+            <td>sexo: {{clientes.sexo}}</td>
         </tr>
+        <div class="form-group">
+            <button type="submit" class="btn btn-outline-danger" (click)="deleteCliente(clientes)">
+                <i class="bi bi-trash"></i> Deletar
+            </button> |
+            <button type="button" (click)="goBack()" class="btn btn-outline-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </button>
+        </div>
     </table>
     <hr>
-    <div class="form-group">
-        <button type="submit" class="btn btn-danger">Deletar</button> |
-        <input type="button" (click)="goBack()" class="btn btn-primary" value="Cancelar">
-    </div>
 </div>

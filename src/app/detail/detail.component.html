@@ -1,12 +1,9 @@
-<div *ngIf="cliente">
-    <h3>Detalhes do Cliente</h3>
-    <hr>
+<h3>Detalhes do Cliente</h3>
+<hr>
+<div><!--*ngFor="let cliente of clientes"-->
     <table>
         <tr>
-            <th>Id: {{cliente.id}}</th>         
-        </tr>
-        <tr>
-            <td>nome: {{cliente.nome}}</td>
+            <td>nome: {{cliente.nomeCompleto}}</td>
         </tr>
         <tr>
             <td>idade: {{cliente.idade}}</td>
@@ -20,7 +17,12 @@
     </table>
     <hr>
     <div class="form-group">
-        <input type="submit" routerLink="/edit/{{cliente.id}}" class="btn btn-primary" value="Editar"> |
-        <input type="button" class="btn btn-primary" value="Voltar" (click)="goBack()">
+        <button type="submit" routerLink="/edit/{{cliente.slug}}" 
+        (click)="this._clienteService.populateForm(cliente)" class="btn btn-outline-primary">
+            <i class="bi bi-pencil"></i> Editar
+        </button> |
+        <button type="button" class="btn btn-outline-primary" (click)="goBack()">
+            <i class="bi bi-arrow-return-left"></i> Voltar
+        </button>
     </div>
 </div>

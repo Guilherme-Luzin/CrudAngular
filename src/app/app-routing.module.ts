@@ -11,9 +11,9 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'clientes', component: ClientesComponent},
   {path: 'create', component: CreateComponent},
-  {path: 'edit/:id', component: CreateComponent},
-  {path: 'detail/:id', component: DetailComponent},
-  {path: 'delete/:id', component: DeleteComponent}
+  {path: 'edit/:slug', component: CreateComponent},
+  {path: 'detail/:slug', component: DetailComponent},
+  {path: 'delete/:slug', component: DeleteComponent},
 ];
 
 @NgModule({
