@@ -1,7 +1,7 @@
 import { Type } from "@angular/core";
 
 export interface ICliente{
-  slug: string //slug: this.nomeCompleto.toLowerCase().replace(/ /g, '-'),
+  slug: string;
   nomeCompleto: string;
   idade: number;
   email: string;

@@ -1,6 +1,6 @@
 <h3>Detalhes do Cliente</h3>
 <hr>
-<div><!--*ngFor="let cliente of clientes"-->
+<div *ngFor="let cliente of cliente"><!--*ngFor="let cliente of clientes"-->
     <table>
         <tr>
             <td>nome: {{cliente.nomeCompleto}}</td>
@@ -18,10 +18,10 @@
     <hr>
     <div class="form-group">
         <button type="submit" routerLink="/edit/{{cliente.slug}}" 
-        (click)="this._clienteService.populateForm(cliente)" class="btn btn-outline-primary">
+        (click)="this._clienteService.populateForm(cliente)" mat-raised-button color="primary">
             <i class="bi bi-pencil"></i> Editar
         </button> |
-        <button type="button" class="btn btn-outline-primary" (click)="goBack()">
+        <button type="button" mat-raised-button (click)="goBack()">
             <i class="bi bi-arrow-return-left"></i> Voltar
         </button>
     </div>

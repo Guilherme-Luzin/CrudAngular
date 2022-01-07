@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { ICliente } from '../cliente.model'
 import { ClientesService } from '../clientes.service';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -16,31 +18,37 @@ export class CreateComponent implements OnInit {
   cliente: ICliente = {slug: '', nomeCompleto: '', idade: 0, email: '', sexo: ''}
   formCliente = this._clienteService.formCliente.controls;
   
-  constructor(public _clienteService: ClientesService, private _location: Location) { 
+  constructor(public _clienteService: ClientesService, 
+    private _location: Location, 
+    private _snackBar: MatSnackBar) { 
     }
     
   ngOnInit(): void {
   }
 
   onSubmit(): void{
-    // if(this._clienteService.formCliente.get('slug') == null){
-    //   this._clienteService.addCliente(this._clienteService.formCliente.value)
-    //   .then(() => this._clienteService.formCliente.reset())
-    // }
-    // else{
-    //   this._clienteService.updateCliente(this._clienteService.formCliente.value)
-    //     .then(() => this._clienteService.formCliente.reset())
-    // }
-
-    this._clienteService.addCliente(this._clienteService.formCliente.value)
-      .then(() => this._clienteService.formCliente.reset())
-      alert("Dados salvos com sucesso")
-      this.goBack();
+    if(this._clienteService.formCliente.get('slug')?.value == null){
+      this._clienteService.addCliente(this._clienteService.formCliente.value)
+      .then(() => this.openSnackBar("salvo"))
+    }
+    else{
+      this._clienteService.updateCliente(this._clienteService.formCliente.value)
+        .then(() => this.openSnackBar("Editado"))
+    }
   }
 
   goBack(): void{
     this._location.back() 
     this._clienteService.formCliente.reset();
+  }
+
+  openSnackBar(mensagem: string) {
+    this._snackBar.open(`Registro ${mensagem} com sucesso`, "Ok", {
+      duration: 3000
+    }).afterDismissed().subscribe(() => {
+      this._clienteService.formCliente.reset(),
+      this.goBack();
+    });
   }
 
 }

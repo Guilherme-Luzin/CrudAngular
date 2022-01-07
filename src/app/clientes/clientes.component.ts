@@ -2,6 +2,11 @@ import { Component, OnInit, Type } from '@angular/core';
 
 import { ICliente } from '../cliente.model';
 import { ClientesService } from '../clientes.service';
+import { DialogComponent } from '../dialog/dialog.component';
+
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-clientes',
@@ -12,23 +17,32 @@ export class ClientesComponent implements OnInit {
 
   clientes: ICliente[] = [];
   searchText: string = "";
+  displayedColumns: string[] = ['nomeCompleto', 'idade', 'email', 'sexo'];
+  dataSource = new MatTableDataSource(this.clientes);
 
-  constructor(public _clienteService: ClientesService) { }
+  constructor(public _clienteService: ClientesService, 
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog) { }
+
+  openSnackBar() {
+    this._snackBar.open("Registro Deletado com sucesso", "Ok", {
+      duration: 3000
+    });
+  }
 
   ngOnInit(): void {
     this._clienteService.getClientes().subscribe((res: ICliente[]) => {
       this.clientes = res;
     })
   }
-
-  showDeletedMessage = false;
-
+  
   deleteCliente(cliente: ICliente){
-    if(confirm("Tem certeza que deseja deletar esse cliente?") == true){
-      this._clienteService.deleteCliente(cliente)/*.then(() => alert("cliente deletado com sucesso"));*/
-      this.showDeletedMessage = true;
-      setTimeout(() => this.showDeletedMessage = false, 1000);
-    }
+    const dialogRef = this.dialog.open(DialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true){
+        this._clienteService.deleteCliente(cliente).then(() => this.openSnackBar());
+      }
+    });
   }
 
   filterCondition(cliente: ICliente){

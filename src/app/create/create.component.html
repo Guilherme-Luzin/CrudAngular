@@ -1,38 +1,48 @@
 <h3>Cadastro de Cliente</h3>
 <hr>
 <div class="col-md-5">
-    <form [formGroup]="this._clienteService.formCliente" (ngSubmit)="onSubmit()">
+    <form class="form-group" [formGroup]="this._clienteService.formCliente" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <input class="form-control" formControlName="slug" ([ngModel])="cliente.slug" type="hidden">
+            <input class="example-form" formControlName="slug" ([ngModel])="cliente.slug" type="hidden">
         </div>
+        <p>
+            <mat-form-field appearance="standard" class="example-full-width">
+                <mat-label>Nome:</mat-label>
+                <input matInput class="form-control" formControlName="nomeCompleto" 
+                ([ngModel])="cliente.nomeCompleto" 
+                placeholder="Nome Completo">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="standard" class="example-full-width">
+                <mat-label>Idade:</mat-label>
+                <input matInput class="form-control" formControlName="idade" 
+                ([ngModel])="cliente.idade" placeholder="0">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="standard" class="example-full-width">
+                <mat-label>Email:</mat-label>
+                <input matInput class="form-control" formControlName="email" ([ngModel])="cliente.email" 
+                placeholder="exemplo@exemplo.exemplo">
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="standard" class="example-full-width">
+                <mat-label>Sexo:</mat-label>
+                <mat-select class="form-control" formControlName="sexo" ([ngModel])="cliente.sexo">
+                    <mat-option selected value="outros">Outros</mat-option>
+                    <mat-option value="masculino">Masculino</mat-option>
+                    <mat-option value="feminino">Feminino</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </p>
         <div class="form-group">
-            <label>Nome:</label>
-            <input class="form-control" formControlName="nomeCompleto" ([ngModel])="cliente.nomeCompleto" 
-            placeholder="Nome Completo">
-        </div>
-        <div class="form-group">
-            <label>Idade:</label>
-            <input class="form-control" formControlName="idade" ([ngModel])="cliente.idade" placeholder="0">
-        </div>
-        <div class="form-group">
-            <label>Email:</label>
-            <input class="form-control" formControlName="email" ([ngModel])="cliente.email" 
-            placeholder="exemplo@exemplo.exemplo">
-        </div>
-        <div class="form-group">
-            <label>Sexo:</label>
-            <select class="form-control" formControlName="sexo" ([ngModel])="cliente.sexo">
-                <option selected value="outros">Outros</option>
-                <option value="masculino">Masculino</option>
-                <option value="feminino">Feminino</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-outline-success" 
+            <button type="submit" mat-raised-button color="primary"
             [disabled]="!this._clienteService.formCliente.valid">
                 <i class="bi bi-save"></i> Salvar
             </button> |
-            <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+            <button type="button" mat-raised-button color="warn" (click)="goBack()">
                 <i class="bi bi-x-circle"></i> Cancelar
             </button>
         </div>
