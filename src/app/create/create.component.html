@@ -11,6 +11,11 @@
                 <input matInput class="form-control" formControlName="nomeCompleto" 
                 ([ngModel])="cliente.nomeCompleto" 
                 placeholder="Nome Completo">
+                <div class="alert alert-danger" 
+                    *ngIf="!this._clienteService.formCliente.controls['nomeCompleto'].valid &&
+                    this._clienteService.formCliente.controls['nomeCompleto'].touched">
+                    Insira um nome válido
+                </div>
             </mat-form-field>
         </p>
         <p>
@@ -18,6 +23,11 @@
                 <mat-label>Idade:</mat-label>
                 <input matInput class="form-control" formControlName="idade" 
                 ([ngModel])="cliente.idade" placeholder="0">
+                <div class="alert alert-danger" 
+                    *ngIf="!this._clienteService.formCliente.controls['idade'].valid &&
+                    this._clienteService.formCliente.controls['idade'].touched">
+                    Insira uma idade válida
+                </div>
             </mat-form-field>
         </p>
         <p>
@@ -25,6 +35,11 @@
                 <mat-label>Email:</mat-label>
                 <input matInput class="form-control" formControlName="email" ([ngModel])="cliente.email" 
                 placeholder="exemplo@exemplo.exemplo">
+                <div class="alert alert-danger" 
+                    *ngIf="!this._clienteService.formCliente.controls['email'].valid && 
+                    this._clienteService.formCliente.controls['email'].touched">
+                    Insira um email válido
+                </div>
             </mat-form-field>
         </p>
         <p>
@@ -35,6 +50,11 @@
                     <mat-option value="masculino">Masculino</mat-option>
                     <mat-option value="feminino">Feminino</mat-option>
                 </mat-select>
+                <div class="alert alert-danger" 
+                    *ngIf="!this._clienteService.formCliente.controls['sexo'].valid && 
+                    this._clienteService.formCliente.controls['sexo'].touched">
+                    O campo sexo deve ser selecionado
+                </div>
             </mat-form-field>
         </p>
         <div class="form-group">

@@ -35,20 +35,18 @@ export class CreateComponent implements OnInit {
       this._clienteService.updateCliente(this._clienteService.formCliente.value)
         .then(() => this.openSnackBar("Editado"))
     }
+    this.goBack()
   }
 
   goBack(): void{
-    this._location.back() 
+    this._location.back();
     this._clienteService.formCliente.reset();
   }
 
   openSnackBar(mensagem: string) {
     this._snackBar.open(`Registro ${mensagem} com sucesso`, "Ok", {
       duration: 3000
-    }).afterDismissed().subscribe(() => {
-      this._clienteService.formCliente.reset(),
-      this.goBack();
-    });
+    }).afterDismissed()
   }
 
 }

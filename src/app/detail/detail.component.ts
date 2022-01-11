@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -13,20 +13,19 @@ import { ICliente } from '../cliente.model'
 })
 export class DetailComponent implements OnInit {
 
-  cliente: ICliente[] = []
+  clientes: ICliente = {slug: '', nomeCompleto: '', idade: 0, email: '', sexo: ''}
 
   constructor(private _route: ActivatedRoute, 
     public _clienteService: ClientesService,
     private _location: Location) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     const slug = String(this._route.snapshot.paramMap.get('slug'));
     console.log("Esse é o slug -> " + slug)
-    this._clienteService.getClienteByID(slug).subscribe((data: ICliente[]) => {
-      this.cliente = data;
-      console.log(data)
-      console.log(this.cliente)
+    this._clienteService.getClienteByID(slug).subscribe((res: ICliente) => {
+      this.clientes = res;
     })
+    console.log(this.clientes)
   }
 
   goBack(): void {

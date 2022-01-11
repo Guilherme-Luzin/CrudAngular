@@ -6,6 +6,7 @@ import {
   Firestore, addDoc, collection, collectionData,
   doc, docData, deleteDoc, updateDoc, DocumentReference, setDoc, enableIndexedDbPersistence
 } from '@angular/fire/firestore';
+import { getDatabase, ref, child, get, onValue } from "firebase/database";
 
 import { Observable, of } from 'rxjs';
 
@@ -21,9 +22,12 @@ export class ClientesService {
 
   formCliente = new FormGroup({
     slug: new FormControl(null),
-    nomeCompleto: new FormControl('', Validators.required),
-    idade: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    nomeCompleto: new FormControl('', [Validators.required, 
+    Validators.pattern("^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$")]),
+    idade: new FormControl('', [Validators.required,
+      Validators.pattern("^[0-9]+$")]),
+    email: new FormControl('', [Validators.required, Validators.email, 
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     sexo: new FormControl('', Validators.required)
   })
 
@@ -57,9 +61,20 @@ export class ClientesService {
     return deleteDoc(clienteDocRef);
   }
 
-  getClienteByID(slug: string): Observable<ICliente[]>{
+  getClienteByID(slug: string){
+    // const dbRef = ref(getDatabase());
+    // get(child(dbRef, `clientes/${slug}`)).then((snapshot) => {
+    //   if(snapshot.exists()){
+    //     console.log(snapshot)
+    //   }
+    //   else{
+    //     console.log("não há dados")
+    //   }
+    // }).catch((error) => {
+    //   console.log("Esse é o erro ----> " + error)
+    // })
     const clienteRef = doc(this.firestore, `cliente/${slug}`);
-    return docData(clienteRef, { idField: 'slug' }) as Observable<ICliente[]>;
+    return docData(clienteRef, { idField: 'slug' }) as Observable<ICliente>;
   }
 
 }

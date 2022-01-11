@@ -24,8 +24,8 @@ export class ClientesComponent implements OnInit {
     private _snackBar: MatSnackBar,
     public dialog: MatDialog) { }
 
-  openSnackBar() {
-    this._snackBar.open("Registro Deletado com sucesso", "Ok", {
+  openSnackBar(Mensagem: string) {
+    this._snackBar.open(Mensagem, "Ok", {
       duration: 3000
     });
   }
@@ -40,7 +40,11 @@ export class ClientesComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if(result == true){
-        this._clienteService.deleteCliente(cliente).then(() => this.openSnackBar());
+        this._clienteService.deleteCliente(cliente)
+        .then(() => this.openSnackBar("Registro Deletado com sucesso"))
+        .catch((error) => {
+          this.openSnackBar("Erro ao deletar registro " + error)
+        });
       }
     });
   }

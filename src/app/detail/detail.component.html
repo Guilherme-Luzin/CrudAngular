@@ -1,24 +1,24 @@
 <h3>Detalhes do Cliente</h3>
 <hr>
-<div *ngFor="let cliente of cliente"><!--*ngFor="let cliente of clientes"-->
+<div><!--*ngFor="let cliente of clientes"-->
     <table>
         <tr>
-            <td>nome: {{cliente.nomeCompleto}}</td>
+            <td>nome: {{clientes.nomeCompleto}}</td>
         </tr>
         <tr>
-            <td>idade: {{cliente.idade}}</td>
+            <td>idade: {{clientes.idade}}</td>
         </tr>
         <tr>
-            <td>email: {{cliente.email}}</td>
+            <td>email: {{clientes.email}}</td>
         </tr>
         <tr>
-            <td>sexo: {{cliente.sexo}}</td>
+            <td>sexo: {{clientes.sexo}}</td>
         </tr>
     </table>
     <hr>
     <div class="form-group">
-        <button type="submit" routerLink="/edit/{{cliente.slug}}" 
-        (click)="this._clienteService.populateForm(cliente)" mat-raised-button color="primary">
+        <button type="submit" routerLink="/edit/{{clientes.slug}}" 
+        (click)="this._clienteService.populateForm(clientes)" mat-raised-button color="primary">
             <i class="bi bi-pencil"></i> Editar
         </button> |
         <button type="button" mat-raised-button (click)="goBack()">
