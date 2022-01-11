@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'create', component: CreateComponent},
   {path: 'edit/:slug', component: CreateComponent},
   {path: 'detail/:slug', component: DetailComponent},
+  {path: '**', component: HomeComponent}
 ];
 
 @NgModule({
